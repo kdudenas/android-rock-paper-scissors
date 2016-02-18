@@ -211,7 +211,7 @@ public class PlayFragment extends Fragment {
                 .setPositiveButton("Replay", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //TODO start a rematch!
+                        //KAD start a rematch!
                         getFragmentManager()
                                 .beginTransaction() //KAD apparently getText(int) will retain any rich text styling applied to the string.
                                 .replace(R.id.main_fragment_container, PlayFragment.newInstance(null, null))
@@ -222,7 +222,9 @@ public class PlayFragment extends Fragment {
                 .setNegativeButton("Quit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //TODO back out to the start screen
+                        //KAD back out to the start screen
+                        Intent other=new Intent(getActivity(), MainActivity.class); //we want to start a new activity, PlayActivity
+                        getActivity().startActivity(other);
 
                     }
                 })
