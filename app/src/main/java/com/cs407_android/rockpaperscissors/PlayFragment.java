@@ -3,6 +3,7 @@ package com.cs407_android.rockpaperscissors;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -24,6 +25,7 @@ public class PlayFragment extends Fragment {
 
     private static final String ARG_PLAYER_ONE = "player1";
     private static final String ARG_PLAYER_TWO = "player2";
+    private static final String ARG_TIE = "No one - it's a tie!"; //KAD what if they tie?
 
     private String player1Choice;
     private String player2Choice;
@@ -105,10 +107,27 @@ public class PlayFragment extends Fragment {
             public void onClick(View v) {
 
                 if(player1Choice == null) {
-                   //TODO player 1 chose Rock
+                   //KAD player 1 chose Rock - Player 2's turn
+                    getFragmentManager()
+                            .beginTransaction() //KAD apparently getText(int) will retain any rich text styling applied to the string.
+                            .replace(R.id.main_fragment_container, PlayFragment.newInstance(getString(R.string.rock), null))
+                            .addToBackStack(null)
+                            .commit();
                 }
                 else{
-                    //TODO player 2 chose Rock
+                    //KAD player 2 chose Rock
+                    if(player1Choice.equals(getString(R.string.paper))){
+                        //paper beats rock; p1 wins
+                        displayWinner(ARG_PLAYER_ONE);
+                    }
+                    else if(player1Choice.equals(getString(R.string.scissors))){
+                        //rock beats scissors; p2 wins
+                        displayWinner(ARG_PLAYER_TWO);
+                    }
+                    else{
+                        //rock == rock; tie
+                        displayWinner(ARG_TIE);
+                    }
                 }
 
             }
@@ -119,11 +138,28 @@ public class PlayFragment extends Fragment {
             public void onClick(View v) {
 
                 if(player1Choice == null) {
-                    //TODO
+                    //KAD player 1 chose Paper - Player 2's turn
+                    getFragmentManager()
+                            .beginTransaction() //KAD apparently getText(int) will retain any rich text styling applied to the string.
+                            .replace(R.id.main_fragment_container, PlayFragment.newInstance(getString(R.string.paper), null))
+                            .addToBackStack(null)
+                            .commit();
 
                 }
                 else{
-                    //TODO
+                    //KAD player 2 chose Paper
+                    if(player1Choice.equals(getString(R.string.scissors))){
+                        //scissors beats paper; p1 wins
+                        displayWinner(ARG_PLAYER_ONE);
+                    }
+                    else if(player1Choice.equals(getString(R.string.rock))){
+                        //paper beats rock; p2 wins
+                        displayWinner(ARG_PLAYER_TWO);
+                    }
+                    else{
+                        //paper == paper; tie
+                        displayWinner(ARG_TIE);
+                    }
 
                 }
             }
@@ -134,11 +170,28 @@ public class PlayFragment extends Fragment {
             public void onClick(View v) {
 
                 if(player1Choice == null) {
-                    //TODO
+                    //KAD player 1 chose Scissors - Player 2's turn
+                    getFragmentManager()
+                            .beginTransaction() //KAD apparently getText(int) will retain any rich text styling applied to the string.
+                            .replace(R.id.main_fragment_container, PlayFragment.newInstance(getString(R.string.scissors), null))
+                            .addToBackStack(null)
+                            .commit();
 
                 }
                 else{
-                    //TODO
+                    //KAD player 2 chose Scissors
+                    if(player1Choice.equals(getString(R.string.rock))){
+                        //rock beats scissors; p1 wins
+                        displayWinner(ARG_PLAYER_ONE);
+                    }
+                    else if(player1Choice.equals(getString(R.string.paper))){
+                        //scissors beats paper; p2 wins
+                        displayWinner(ARG_PLAYER_TWO);
+                    }
+                    else{
+                        //scissors == scissors; tie
+                        displayWinner(ARG_TIE);
+                    }
 
                 }
             }
@@ -159,12 +212,18 @@ public class PlayFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //TODO start a rematch!
+                        getFragmentManager()
+                                .beginTransaction() //KAD apparently getText(int) will retain any rich text styling applied to the string.
+                                .replace(R.id.main_fragment_container, PlayFragment.newInstance(null, null))
+                                .addToBackStack(null)
+                                .commit();
                     }
                 })
                 .setNegativeButton("Quit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //TODO back out the the start screen
+                        //TODO back out to the start screen
+
                     }
                 })
                 .show();
