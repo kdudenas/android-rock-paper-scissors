@@ -223,8 +223,7 @@ public class PlayFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //KAD back out to the start screen
-                        Intent other=new Intent(getActivity(), MainActivity.class); //we want to start a new activity, PlayActivity
-                        getActivity().startActivity(other);
+                     getActivity().finish();
 
                     }
                 })
